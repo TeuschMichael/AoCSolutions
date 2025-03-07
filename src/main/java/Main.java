@@ -15,43 +15,75 @@ public class Main {
         File file = new File("./AoC1.txt");
         Path sourcePath = FileSystems.getDefault().getPath("F:/Code Projects/Java/Advent of Code/AoC1/AoC1.txt");
         List<String> sourceList = readAllLines(sourcePath);
-        System.out.println(sourceList.size());
 
         String[] sArr;
 
         List<String> listA = new ArrayList<>();
         List<String> listB = new ArrayList<>();
 
-        System.out.println("Sourcelist: " +sourceList.get(0));
+        //System.out.println("Sourcelist Size: " +sourceList.get(0));
 
 
         for (String s : sourceList) {
             sArr = s.split("   ");
-            System.out.println("sArr0 : "+sArr[0]);
+            //System.out.println("sArr0 : "+sArr[0]);
             listA.add(sArr[0]);
             listB.add(sArr[1]);
         }
 
-        System.out.println("ListA : " + listA);
-        System.out.println("ListB : " + listB);
+        //System.out.println("ListA : " + listA);
+        //System.out.println("ListB : " + listB);
 
         listA.sort(null);
         listB.sort(null);
 
         int totalDistance = 0;
 
-        for(int i = 0; i < listA.size(); i++) {
+        for (int i = 0; i < listA.size(); i++) {
             int a = Integer.parseInt(listA.get(i));
             int b = Integer.parseInt(listB.get(i));
             int distance = 0;
-                if (a < b) {
-                    distance = b - a;
-                } else {
-                    distance = a - b;
-                }
+            if (a < b) {
+                distance = b - a;
+            } else {
+                distance = a - b;
+            }
             totalDistance = totalDistance + distance;
         }
         System.out.println("Total Distance = " + totalDistance);
+
+
+        List<Integer> intListA = new ArrayList<>();
+        List<Integer> intListB = new ArrayList<>();
+
+        for (String s : listA) {
+            intListA.add(Integer.parseInt(s));
+        }
+
+        for (String s : listB) {
+            intListB.add(Integer.parseInt(s));
+        }
+
+
+        int similarityTotal = 0;
+        long endSimilarity = 0;
+
+        for(int i : intListA) {
+            int similarity = 0;
+            for(int j : intListB){
+                if(i == j) {
+                    System.out.println(i + "is equal to" + j);
+                    similarity++;
+                    System.out.println("Similarity : " + similarity);
+                }
+            }
+            similarityTotal = similarity * i;
+            System.out.println("Total : " + similarityTotal);
+            endSimilarity = endSimilarity + similarityTotal;
+        }
+
+        System.out.println(endSimilarity);
+
     }
 }
 
