@@ -3,6 +3,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import static java.nio.file.Files.find;
 import static java.nio.file.Files.readAllLines;
@@ -12,78 +13,61 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        File file = new File("./AoC1.txt");
-        Path sourcePath = FileSystems.getDefault().getPath("F:/Code Projects/Java/Advent of Code/AoC1/AoC1.txt");
+
+        Path sourcePath = FileSystems.getDefault().getPath("F:/Code Projects/Java/Advent of Code/AoC1/AoC2.txt");
         List<String> sourceList = readAllLines(sourcePath);
 
-        String[] sArr;
+        System.out.println("Source size is : " + sourceList.size());
 
-        List<String> listA = new ArrayList<>();
-        List<String> listB = new ArrayList<>();
+        List<Integer> intSourceList = new ArrayList<>();
+        String[] iArr;
 
-        //System.out.println("Sourcelist Size: " +sourceList.get(0));
-
+        boolean safetyCheck = false;
+        int nrOfSave = 0;
 
         for (String s : sourceList) {
-            sArr = s.split("   ");
-            //System.out.println("sArr0 : "+sArr[0]);
-            listA.add(sArr[0]);
-            listB.add(sArr[1]);
-        }
+            intSourceList.clear();
+            System.out.println(s);
+            iArr = s.split(" ");
 
-        //System.out.println("ListA : " + listA);
-        //System.out.println("ListB : " + listB);
-
-        listA.sort(null);
-        listB.sort(null);
-
-        int totalDistance = 0;
-
-        for (int i = 0; i < listA.size(); i++) {
-            int a = Integer.parseInt(listA.get(i));
-            int b = Integer.parseInt(listB.get(i));
-            int distance = 0;
-            if (a < b) {
-                distance = b - a;
-            } else {
-                distance = a - b;
+            for (String e : iArr) {
+                intSourceList.add(Integer.parseInt(e));
             }
-            totalDistance = totalDistance + distance;
-        }
-        System.out.println("Total Distance = " + totalDistance);
+            System.out.println(" Integer List is size : " + intSourceList.size());
 
-
-        List<Integer> intListA = new ArrayList<>();
-        List<Integer> intListB = new ArrayList<>();
-
-        for (String s : listA) {
-            intListA.add(Integer.parseInt(s));
-        }
-
-        for (String s : listB) {
-            intListB.add(Integer.parseInt(s));
-        }
-
-
-        int similarityTotal = 0;
-        long endSimilarity = 0;
-
-        for(int i : intListA) {
-            int similarity = 0;
-            for(int j : intListB){
-                if(i == j) {
-                    System.out.println(i + "is equal to" + j);
-                    similarity++;
-                    System.out.println("Similarity : " + similarity);
-                }
+            safetyCheck = isOrdered(intSourceList);
+            System.out.println("List is save :" + safetyCheck);
+            if (safetyCheck == true){
+                nrOfSave = nrOfSave + 1;
             }
-            similarityTotal = similarity * i;
-            System.out.println("Total : " + similarityTotal);
-            endSimilarity = endSimilarity + similarityTotal;
+            System.out.println(nrOfSave);
+
         }
-
-        System.out.println(endSimilarity);
-
     }
+
+
+
+    public static boolean isOrdered(List<Integer> numbers) {
+        boolean increasing = true;
+        boolean decreasing = true;
+
+        for (int i = 1; i < numbers.size(); i++) {
+            int diff = numbers.get(i) - numbers.get(i - 1);
+            if (Math.abs(diff) > 3 || Math.abs(diff) < 1) {
+                return false;
+            }
+            if (numbers.get(i) > numbers.get(i - 1)) {
+                decreasing = false;
+            } else if (numbers.get(i) < numbers.get(i - 1)) {
+                increasing = false;
+            }
+        }
+
+        return increasing || decreasing;
+    }
+
 }
+
+
+
 
