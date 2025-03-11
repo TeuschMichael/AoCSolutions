@@ -1,10 +1,8 @@
-import java.io.File;
-import java.nio.file.FileSystems;
+package main;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.nio.file.Files.find;
 import java.nio.file.*;
 
 
@@ -13,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        List<String> sourceList = Files.readAllLines(Path.of("F:/Code Projects/Java/Advent of Code/AoC1/AoC1.txt"));
+        List<String> sourceList = Files.readAllLines(Path.of("AoC1.txt"));
         System.out.println(sourceList.size());
 
 
